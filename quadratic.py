@@ -1,7 +1,6 @@
 """Module contains a function that solves quadratic equation."""
 
 import math
-import cmath
 
 def solve_quadratic(a, b, c):
     """Find real or complex roots of equation ax**2 + bx + c = 0.
@@ -23,7 +22,7 @@ def solve_quadratic(a, b, c):
     if a == 0:
         raise ValueError("equation is not quadratic")
     discriminant = b**2 - 4 * a * c
-    sqrt = lambda x : math.sqrt(x) if x >= 0 else cmath.sqrt(x)
+    sqrt = lambda x : math.sqrt(x) if x >= 0 else complex(0, math.sqrt(-x))
     roots = ((-b + k * sqrt(discriminant)) / (2.0 * a) for k in (-1, 1))
     return tuple(set(roots))
 
