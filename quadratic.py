@@ -22,7 +22,7 @@ def solve_quadratic(a, b, c):
     if a == 0:
         raise ValueError("equation is not quadratic")
     discriminant = b**2 - 4 * a * c
-    sqrt = lambda x : math.sqrt(x) if x >= 0 else complex(0, math.sqrt(-x))
+    def sqrt(x): return math.sqrt(x) if x >= 0 else complex(0, math.sqrt(-x))
     roots = ((-b + k * sqrt(discriminant)) / (2.0 * a) for k in (-1, 1))
     return tuple(set(roots))
 
