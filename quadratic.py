@@ -2,6 +2,8 @@
 
 import math
 
+EPSILON = 10**(-9)
+
 def solve_quadratic(a, b, c):
     """Find real or complex roots of equation ax**2 + bx + c = 0.
 
@@ -17,14 +19,15 @@ def solve_quadratic(a, b, c):
     (2.0, 3.0)
 
     >>> [solve_quadratic(1, 0, k**2) for k in range(1, 5)]
-    [(-1j, 1j), (-2j, 2j), (3j, -3j), (4j, -4j)]
+    [(-1j, 1j), (-2j, 2j), (-3j, 3j), (-4j, 4j)]
     """
-    if a == 0:
+    if abs(a) < EPSILON:
         raise ValueError("equation is not quadratic")
     discriminant = b**2 - 4 * a * c
-    def sqrt(x): return math.sqrt(x) if x >= 0 else complex(0, math.sqrt(-x))
-    roots = ((-b + k * sqrt(discriminant)) / (2.0 * a) for k in (-1, 1))
-    return tuple(set(roots))
+    def sqrt(x):
+        return math.sqrt(x) if x >= 0 else complex(0, math.sqrt(-x))
+    roots = [(-b + k * sqrt(discriminant)) / (2.0 * a) for k in (-1, 1)]
+    return (roots[0],) if abs(discriminant) < EPSILON else tuple(roots)
 
 if __name__ == "__main__":
     import doctest
